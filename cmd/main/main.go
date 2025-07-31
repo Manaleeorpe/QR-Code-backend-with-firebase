@@ -20,9 +20,12 @@ func main() {
 	config.ConnectFirebase()
 
 	// Use Gorilla Mux
-	router := mux.NewRouter()
-	routes.RegisterQRCodeGeneratorstoreRoutes(router)
-	routes.RegisterQRCodeGeneratorFirebasestoreRoutes(router)
+	func SetupRoutes() *mux.Router {
+	    router := mux.NewRouter()
+	    RegisterQRCodeGeneratorstoreRoutes(router)          // your other routes
+	    RegisterQRCodeGeneratorFirebasestoreRoutes(router) // your firebase routes
+	    return router
+	}
 
 	c := cors.New(cors.Options{
 		AllowedOrigins:   []string{"http://localhost:3000"}, // React dev server
